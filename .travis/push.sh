@@ -9,8 +9,8 @@ commit_website_files() {
 }
 
 upload_files() {
-  git remote add myorigin https://nettlemeow:${GH_TOKEN}@github.com/nettlemeow/nettlemeow-data.git > /dev/null 2>&1
-  git push --quiet --set-upstream myorigin master
+  git remote add myorigin https://nettlemeow:${GH_TOKEN}@github.com/nettlemeow/nettlemeow-data.git
+  git push --set-upstream myorigin master
 }
 
 cd ./source/data
