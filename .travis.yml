@@ -7,6 +7,7 @@ branches:
   only:
     - src # build master branch only
 script:
+  - .travis/pre_push.sh
   - npm run fetch
   - .travis/push.sh
   - hexo generate # generate static files
