@@ -49,6 +49,7 @@ get_video_list((err, data) => {
     const thumbnail = "https:" + pic + "@560w_350h_100Q_1c.webp";
     const w = new Writer(title, timeConverter(created, false), thumbnail);
     const output = `../source/_posts/dynamic/${aid}.md`;
+    ensureDirectoryExistence(path.join(__dirname, output));
     w.writeText(title);
 
     fs.writeFile(path.join(__dirname, output), w.getContent(), function(err) {
