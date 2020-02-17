@@ -5,10 +5,13 @@ export default class Writer {
     this.title = title;
     this._content = `---\ntitle: ${title}\ndate: ${date}\nthumbnail: ${thumbnail}\n---\n`;
   }
+  writeAVVideo(aid:string){
+    this._content += `{% bilibili_video ${aid} %}`
+  }
   writeText(text: string): void {
     this._content += text + "\n\n";
   }
-  writeAV(aid: string): void {
+  writeAVStat(aid: string): void {
     this._content += `{% meow_chart meow_chart_${aid} ${aid} %}\n\n`;
   }
   writeTable(
