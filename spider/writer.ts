@@ -6,7 +6,7 @@ export default class Writer {
     this._content = `---\ntitle: ${title}\ndate: ${date}\nthumbnail: ${thumbnail}\n---\n`;
   }
   writeAVVideo(aid:string){
-    this._content += `{% bilibili_video ${aid} %}`
+    this._content += `{% bilibili_video ${aid} %}\n\n`
   }
   writeText(text: string): void {
     this._content += text + "\n\n";
