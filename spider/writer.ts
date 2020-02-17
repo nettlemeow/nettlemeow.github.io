@@ -8,6 +8,9 @@ export default class Writer {
   writeText(text: string): void {
     this._content += text + "\n\n";
   }
+  writeAV(aid: string): void {
+    this._content += `{% meow_chart meow_chart_${aid} ${aid} %}\n\n`;
+  }
   writeTable(
     columns: Array<string>,
     align: Array<string>,

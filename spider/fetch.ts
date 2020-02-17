@@ -51,7 +51,7 @@ get_video_list((err, data) => {
     const output = `../source/_posts/dynamic/${aid}.md`;
     ensureDirectoryExistence(path.join(__dirname, output));
     w.writeText(title);
-
+    w.writeAV(aid);
     fs.writeFile(path.join(__dirname, output), w.getContent(), function(err) {
       if (err) {
         return console.error(err);
