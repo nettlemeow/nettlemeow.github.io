@@ -11,7 +11,10 @@
     Http.send();
 
     Http.onreadystatechange = e => {
-      callback(null, Http.responseText);
+      if (Http.readyState == 4 && Http.status == 200) {
+        callback(null, Http.responseText);
+      }
+     
     };
   }
   function getYearmonth(dt) {
