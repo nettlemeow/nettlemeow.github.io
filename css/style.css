@@ -593,13 +593,13 @@ code {
   padding: 3px 0;
 }
 #sidebar .sidebar-top .social-links {
-  float: right;
+  float: left;
   position: relative;
   padding-top: 2px;
 }
 #sidebar .sidebar-top .social-links li {
   float: left;
-  margin-left: 8px;
+  margin-left: 20px;
 }
 #sidebar .sidebar-top .social-links li a:hover i:before {
   color: #fff;
