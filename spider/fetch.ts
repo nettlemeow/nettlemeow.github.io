@@ -45,39 +45,43 @@ function timeConverter(UNIX_timestamp: number, onlyMonth: boolean): string {
 get_video_list((err, data) => {
   if (err) throw err;
   const now = Math.round(+new Date() / 1000);
-  data.forEach(({ title, created, aid, pic, play, video_review }) => {
-    const thumbnail = "https:" + pic + "@560w_350h_100Q_1c.webp";
-    const w = new Writer(title, timeConverter(created, false), thumbnail);
-    const output = `../source/_posts/dynamic/${aid}.md`;
-    ensureDirectoryExistence(path.join(__dirname, output));
-    w.writeText(title);
-    w.writeAV(aid);
-    fs.writeFile(path.join(__dirname, output), w.getContent(), function(err) {
-      if (err) {
-        return console.error(err);
-      }
-      console.log(`${title} created!`);
-    });
-
-    const yearmonth = timeConverter(now, true);
-    const target = `../source/data/video/av${aid}/${yearmonth}.json`;
-    ensureDirectoryExistence(path.join(__dirname, target));
-
-    let data = { yearmonth: yearmonth, data: [] };
-    fs.readFile(path.join(__dirname, target), (err, fileData) => {
-      if (!err) {
-        data = JSON.parse(fileData.toString());
-      }
-      data.data.push([now, play, video_review]);
-
-      fs.writeFile(path.join(__dirname, target), JSON.stringify(data), function(
-        err2
-      ) {
-        if (err2) {
-          return console.error(err2);
+  data.forEach(
+    ({ title, created, aid, pic, play, video_review, description }) => {
+      const thumbnail = "https:" + pic + "@560w_350h_100Q_1c.webp";
+      const w = new Writer(title, timeConverter(created, false), thumbnail);
+      const output = `../source/_posts/dynamic/${aid}.md`;
+      ensureDirectoryExistence(path.join(__dirname, output));
+      w.writeText(description);
+      w.writeAV(aid);
+      fs.writeFile(path.join(__dirname, output), w.getContent(), function(err) {
+        if (err) {
+          return console.error(err);
         }
-        console.log(`${title} data updated!`);
+        console.log(`${title} created!`);
       });
-    });
-  });
+
+      const yearmonth = timeConverter(now, true);
+      const target = `../source/data/video/av${aid}/${yearmonth}.json`;
+      ensureDirectoryExistence(path.join(__dirname, target));
+
+      let data = { yearmonth: yearmonth, data: [] };
+      fs.readFile(path.join(__dirname, target), (err, fileData) => {
+        if (!err) {
+          data = JSON.parse(fileData.toString());
+        }
+        data.data.push([now, play, video_review]);
+
+        fs.writeFile(
+          path.join(__dirname, target),
+          JSON.stringify(data),
+          function(err2) {
+            if (err2) {
+              return console.error(err2);
+            }
+            console.log(`${title} data updated!`);
+          }
+        );
+      });
+    }
+  );
 });
