@@ -5,6 +5,7 @@
     }
     return { v: n.toFixed(2).replace(/\.0+$/, ""), u: "" };
   }
+
   function httpGet(url, callback) {
     const Http = new XMLHttpRequest();
     Http.open("GET", url);
@@ -14,11 +15,20 @@
       if (Http.readyState == 4 && Http.status == 200) {
         callback(null, Http.responseText);
       }
-     
     };
   }
+
+  function pad(num, size) {
+    var s = num + "";
+    while (s.length < size) s = "0" + s;
+    return s;
+  }
+
   function getYearmonth(dt) {
-    return "202002";
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = now.getMonth() + 1;
+    return year + pad(month, 2);
   }
 
   function render(elemId, ydata) {
