@@ -103,3 +103,10 @@ theme: hueman
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: ""
+
+jsonContent:
+  ignore:
+    paths:
+      - css
+      - data
+      - js
