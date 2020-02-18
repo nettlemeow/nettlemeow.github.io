@@ -1,12 +1,12 @@
-export default class Writer {
+export default class Post {
   title: string;
   _content: string;
   constructor(title: string, date: string, thumbnail: string) {
     this.title = title;
     this._content = `---\ntitle: ${title}\ndate: ${date}\nthumbnail: ${thumbnail}\n---\n`;
   }
-  writeAVVideo(aid:string){
-    this._content += `{% bilibili_video ${aid} %}\n\n`
+  writeAVVideo(aid: string) {
+    this._content += `{% bilibili_video ${aid} %}\n\n`;
   }
   writeText(text: string): void {
     this._content += text + "\n\n";
