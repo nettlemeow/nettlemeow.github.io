@@ -20,4 +20,4 @@ commit_website_files
 upload_files
 
 # remove data folder after committed updated files, so github pages will not include data folder.
-rm -rf ./source/data
+rm -rf .
