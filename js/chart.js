@@ -118,10 +118,9 @@
   }
   function loadData(elemId, aid) {
     const yearmonth = getYearmonth(new Date());
-    //let url = `/data/video/av${aid}/${yearmonth}.json`;
     let url = `/nettlemeow-data/video/av${aid}/${yearmonth}.json`;
     if (aid === "following") {
-      url = `/data/following/${yearmonth}.json`;
+      url = `/nettlemeow-data/following/${yearmonth}.json`;
     }
     httpGet(url, function(err, result) {
       const r = JSON.parse(result);
