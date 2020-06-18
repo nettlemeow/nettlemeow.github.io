@@ -1,6 +1,3 @@
 [submodule "themes/hueman"]
 	path = themes/hueman
 	url = https://github.com/nettlemeow/hexo-theme-hueman.git
-[submodule "source/data"]
-	path = source/data
-	url = https://github.com/nettlemeow/nettlemeow-data.git
