@@ -15,7 +15,7 @@ script:
   - .travis/pre_push.sh
   - npm run fetch
   - .travis/push.sh
-  - hexo generate
+  - npm run build
 
 deploy:
   provider: pages
