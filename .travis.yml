@@ -1,16 +1,22 @@
-sudo: false
 language: node_js
+
 node_js:
   - 10 # use nodejs v10 LTS
+
 cache: npm
+
 branches:
   only:
-    - src # build master branch only
+    - src
+
+install: npm install
+
 script:
   - .travis/pre_push.sh
   - npm run fetch
   - .travis/push.sh
-  - hexo generate # generate static files
+  - hexo generate
+
 deploy:
   provider: pages
   skip-cleanup: true
@@ -20,5 +26,3 @@ deploy:
     branch: src
   local-dir: public
   target_branch: master
-git:
-  submodule: true
