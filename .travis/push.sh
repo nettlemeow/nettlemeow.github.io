@@ -5,7 +5,7 @@ setup_git() {
 
 commit_website_files() {
   git add .
-  git commit --message "Github build $GITHUB_SHA"
+  git commit --message "Github build $GITHUB_RUN_NUMBER"
 }
 
 upload_files() {
