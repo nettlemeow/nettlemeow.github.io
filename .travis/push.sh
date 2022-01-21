@@ -5,7 +5,7 @@ setup_git() {
 
 commit_website_files() {
   git add .
-  git commit --message "Github build"
+  git commit --message "Github build $GITHUB_SHA"
 }
 
 upload_files() {
@@ -15,8 +15,6 @@ upload_files() {
 
 cd ./source/data
 
-pwd
-echo ${MYNAME}
 setup_git
 commit_website_files
 upload_files

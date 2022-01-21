@@ -24,7 +24,6 @@ jobs:
       - run: .travis/push.sh
         env:
           PAT: ${{ secrets.PAT }}
-          MYNAME: YAORENMAO
       - run: npm run build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.2
