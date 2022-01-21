@@ -19,7 +19,7 @@ jobs:
       - run: npm run fetch
       - shell: bash
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUSH_TOKEN: ${{ secrets.PUSH_TOKEN }}
         run: .travis/push.sh
       - run: npm run build
       - name: Deploy 🚀
