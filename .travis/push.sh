@@ -15,6 +15,7 @@ upload_files() {
 
 cd ./source/data
 
+echo ${MYNAME}
 setup_git
 commit_website_files
 upload_files
