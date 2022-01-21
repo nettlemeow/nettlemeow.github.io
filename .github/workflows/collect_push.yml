@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - src
+  schedule:
+    - cron:  '0,30 * * * *'
+
 jobs:
   Collect-And-Push:
     runs-on: ubuntu-latest
