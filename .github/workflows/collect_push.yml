@@ -19,15 +19,8 @@ jobs:
       - run: npm run fetch
       - run: .travis/push.sh
       - run: npm run build
-
-# deploy:
-#   provider: pages
-#   skip-cleanup: true
-#   github-token: $GH_TOKEN
-#   keep-history: true
-#   on:
-#     branch: src
-#   local-dir: public
-#   target_branch: master
-# git:
-#   submodule: true
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.2
+        with:
+          branch: master
+          folder: public
