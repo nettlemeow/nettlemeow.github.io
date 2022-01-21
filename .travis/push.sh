@@ -9,7 +9,7 @@ commit_website_files() {
 }
 
 upload_files() {
-  git remote add myorigin https://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@github.com/nettlemeow/nettlemeow-data.git
+  git remote add myorigin https://${PAT}@github.com/nettlemeow/nettlemeow-data.git
   git push --set-upstream myorigin master
 }
 

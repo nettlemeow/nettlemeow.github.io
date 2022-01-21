@@ -19,7 +19,7 @@ jobs:
       - run: npm run fetch
       - shell: bash
         env:
-          PUSH_TOKEN: ${{ secrets.PUSH_TOKEN }}
+          PAT: ${{ secrets.PAT }}
         run: .travis/push.sh
       - run: npm run build
       - name: Deploy 🚀
