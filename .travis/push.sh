@@ -1,15 +1,15 @@
 setup_git() {
-  git config --global user.email "travis@travis-ci.org"
-  git config --global user.name "Travis CI"
+  git config --global user.email "bot@github.com"
+  git config --global user.name "Github CI"
 }
 
 commit_website_files() {
   git add .
-  git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
+  git commit --message "Github build"
 }
 
 upload_files() {
-  git remote add myorigin https://nettlemeow:${GH_TOKEN}@github.com/nettlemeow/nettlemeow-data.git
+  git remote add myorigin https://nettlemeow:${secrets.GITHUB_TOKEN}@github.com/nettlemeow/nettlemeow-data.git
   git push --set-upstream myorigin master
 }
 
