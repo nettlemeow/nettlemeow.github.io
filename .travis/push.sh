@@ -1,6 +1,6 @@
 setup_git() {
-  git config --global user.email "bot@github.com"
-  git config --global user.name "Github CI"
+  git config --global user.email "nettlemeow@outlook.com"
+  git config --global user.name "nettlemeow"
 }
 
 commit_website_files() {
