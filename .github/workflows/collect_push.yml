@@ -17,7 +17,10 @@ jobs:
       - run: npm install
       - run: .travis/pre_push.sh
       - run: npm run fetch
-      - run: .travis/push.sh
+      - shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: .travis/push.sh
       - run: npm run build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.2
