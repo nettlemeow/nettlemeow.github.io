@@ -3,7 +3,7 @@ import path = require("path");
 
 import Post from "./post";
 import { addHistory } from "./history";
-import { get_video_list, get_follow_info } from "./bilibili";
+import { get_video_list, get_follow_info, downloadImage } from "./bilibili";
 import { ensureDirectoryExistence, timeConverter } from "./utils";
 
 const now = Math.round(+new Date() / 1000);
@@ -14,35 +14,48 @@ get_video_list((err, data) => {
 
   data.forEach(
     ({ title, created, aid, pic, play, video_review, description }) => {
-      const thumbnail = pic + "@560w_350h_100Q_1c.webp";
-      const newPost = new Post(title, timeConverter(created, false), thumbnail);
-      const output = `../source/_posts/dynamic/${aid}.md`;
-      ensureDirectoryExistence(path.join(__dirname, output));
-      newPost.writeAVVideo(aid);
-      newPost.writeText(description);
-      newPost.writeAVStat(aid);
-      fs.writeFile(path.join(__dirname, output), newPost.getContent(), function(
-        err
-      ) {
-        if (err) {
-          return console.error(err);
-        }
-        console.log(`${title} created!`);
-      });
-
-      const outputFile = path.join(
+      const imageUrl = pic + "@560w_350h_100Q_1c.webp";
+      const thumbnail = "/images/" + aid + ".webp";
+      const outputImageFile = path.join(
         __dirname,
-        `../source/data/video/av${aid}/${yearmonth}.json`
+        `../source${thumbnail}`
       );
+      downloadImage(imageUrl, outputImageFile, function (err) {
+        const newPost = new Post(
+          title,
+          timeConverter(created, false),
+          thumbnail
+        );
+        const output = `../source/_posts/dynamic/${aid}.md`;
+        ensureDirectoryExistence(path.join(__dirname, output));
+        newPost.writeAVVideo(aid);
+        newPost.writeText(description);
+        newPost.writeAVStat(aid);
+        fs.writeFile(
+          path.join(__dirname, output),
+          newPost.getContent(),
+          function (err) {
+            if (err) {
+              return console.error(err);
+            }
+            console.log(`${title} created!`);
+          }
+        );
 
-      addHistory(
-        outputFile,
-        { yearmonth: yearmonth, data: [] },
-        [now, play, video_review],
-        () => {
-          console.log(`${title} data updated!`);
-        }
-      );
+        const outputFile = path.join(
+          __dirname,
+          `../source/data/video/av${aid}/${yearmonth}.json`
+        );
+
+        addHistory(
+          outputFile,
+          { yearmonth: yearmonth, data: [] },
+          [now, play, video_review],
+          () => {
+            console.log(`${title} data updated!`);
+          }
+        );
+      });
     }
   );
 });
