@@ -3,23 +3,21 @@ import path = require("path");
 
 import Post from "./post";
 import { addHistory } from "./history";
-import { get_video_list, get_follow_info, downloadImage } from "./bilibili";
+import { get_all_video_list, get_follow_info, downloadImage } from "./bilibili";
 import { ensureDirectoryExistence, timeConverter } from "./utils";
 
 const now = Math.round(+new Date() / 1000);
 const yearmonth = timeConverter(now, true);
+const mid = "116683";
 
-get_video_list((err, data) => {
+get_all_video_list(mid, (err, data) => {
   if (err) throw err;
 
   data.forEach(
     ({ title, created, aid, pic, play, video_review, description }) => {
       const imageUrl = pic + "@560w_350h_100Q_1c.webp";
       const thumbnail = "/images/" + aid + ".webp";
-      const outputImageFile = path.join(
-        __dirname,
-        `../source${thumbnail}`
-      );
+      const outputImageFile = path.join(__dirname, `../source${thumbnail}`);
       downloadImage(imageUrl, outputImageFile, function (err) {
         const newPost = new Post(
           title,
@@ -60,7 +58,7 @@ get_video_list((err, data) => {
   );
 });
 
-get_follow_info((err, { follower }) => {
+get_follow_info(mid, (err, { follower }) => {
   if (err) {
     return console.error(err);
   }

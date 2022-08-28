@@ -1,14 +1,14 @@
 import axios from "axios";
 import { writeFile } from "fs";
+import async = require("async");
 
-export function get_video_list(callback) {
-  const mid = "116683";
-  const url = `https://api.bilibili.com/x/space/arc/search?mid=${mid}&ps=30&tid=0&pn=1&keyword=&order=pubdate&jsonp=jsonp`;
+export function get_video_list(mid, pn, ps, callback) {
+  const url = `https://api.bilibili.com/x/space/arc/search?mid=${mid}&ps=${ps}&tid=0&pn=${pn}&keyword=&order=pubdate&jsonp=jsonp`;
 
   axios
     .get(url)
     .then(function (response) {
-      return callback(null, response.data.data.list.vlist);
+      return callback(null, response.data.data);
     })
     .catch(function (error) {
       // handle error
@@ -17,8 +17,31 @@ export function get_video_list(callback) {
     });
 }
 
-export function get_follow_info(callback) {
-  const mid = "116683";
+export function get_all_video_list(mid, callback) {
+  const pn = 1;
+  const ps = 30;
+  const plimit = 5;
+  get_video_list(mid, pn, ps, function (err, response) {
+    const { count } = response.page;
+    const total = Math.ceil(count / ps);
+    const tasks: any[] = [];
+    for (let i = 1; i <= total; i++) {
+      tasks.push((cb) => {
+        get_video_list(mid, i, ps, cb);
+      });
+    }
+    async.parallelLimit(tasks, plimit, function (err, resultArray) {
+      let result: any[] = [];
+      resultArray.forEach((r) => {
+        result = result.concat(r.list.vlist);
+      });
+
+      callback(err, result);
+    });
+  });
+}
+
+export function get_follow_info(mid, callback) {
   const url = `https://api.bilibili.com/x/relation/stat?vmid=${mid}`;
 
   axios
